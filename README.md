@@ -1,4 +1,4 @@
-# image-semantic-search
+# multilingual-stable-diffusion
 stable diffusion docker image 
 
 <p align="center"> 
