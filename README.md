@@ -1,6 +1,14 @@
 # image-semantic-search
 This tools allows to use stable diffusion model
 
+<p align="center"> 
+  <img src="./images/gal-gadot.jpg">
+  <h3 align="center">
+    gal gadot, portrait by ruan jia and miho hirano, colorful, vibrant, majestic
+  </h3>  
+</p>
+
+
 # docker env variables 
 * CACHE 
     * model will be cached here 
@@ -19,8 +27,8 @@ This tools allows to use stable diffusion model
 
 # build and run server-mode for cpu 
 ```bash
-docker build -t img-generation:0.0 -f Dockerfile.gpu .
-docker run --rm --name stable-diffusion --interactive --tty --gpus all -v path2cache:/home/solver/cache -p 8000:8000 img-generation:0.0 --server_port 8000 --backend_mounting_path ''
+docker build -t stable-diffusion:0.0 -f Dockerfile.gpu .
+docker run --rm --name stable-diffusion --interactive --tty --gpus all -v path2cache:/home/solver/cache -p hostport:server_port -p hostport:display_port  stable-diffusion:0.0 --server_port 8000 --display_port 7068 --language_source 'french' --token your-token
 ``` 
 
 # examples of prompts 
