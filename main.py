@@ -6,21 +6,21 @@ import multiprocessing as mp
 from libraries.log import logger 
 from libraries.strategies import * 
 
-from settings import API_SCHEMA, APP_DESCRIPTIONS, ZMQ_SERVER_PORT, MAP_SOURCE_LANGUAGE2CODE
+from settings import API_SCHEMA, APP_DESCRIPTIONS, FASTAPI_SERVER_PORT, ZMQ_SERVER_PORT, MAP_SOURCE_LANGUAGE2CODE
 from server import app 
+from display import start_displayer
 
 from os import getenv, path 
 from torch.cuda.amp import autocast
 
 @click.command()
 @click.option('--gpu_index', type=int, default=0, help='for multi gpu infra')
-@click.option('--token', type=str, help='huggingface token', default='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')
+@click.option('--token', type=str, help='huggingface token', required=True)
 @click.option('--path2diffusion', type=str, default='CompVis/stable-diffusion-v1-4')
 @click.option('--diffusion_model_name', type=str, default='diffusion_pipe.pkl', help='the cached(pickle) model')
-@click.option('--server_port', type=int, default=8000)
-@click.option('--hostname', default='0.0.0.0')
+@click.option('--display_port', type=int, default=7068)
 @click.option('--language_source', help='the source language', type=click.Choice(list(MAP_SOURCE_LANGUAGE2CODE.keys())), default='french')
-def serving(gpu_index, token, path2diffusion, diffusion_model_name, server_port, hostname, language_source):
+def serving(gpu_index, token, path2diffusion, diffusion_model_name, display_port, language_source):
     try:
         path2cache = getenv('CACHE')
         is_valid(path2cache, 'PATH2CACHE', 'isdir')
@@ -60,13 +60,22 @@ def serving(gpu_index, token, path2diffusion, diffusion_model_name, server_port,
         app.openapi = lambda: customize_openapi(app, APP_DESCRIPTIONS, API_SCHEMA)
         api_process = mp.Process(
             target=uvicorn.run, 
-            kwargs={'app': app, 'port': server_port, 'host': hostname}
+            kwargs={'app': app, 'port': FASTAPI_SERVER_PORT, 'host': '0.0.0.0'}
         )
 
         api_process.start()
 
+        displayer_process = mp.Process(
+            target=start_displayer, 
+            kwargs={ 
+                'display_port': display_port 
+            }
+        )
+
+        displayer_process.start()
+
         keep_routing = True
-        logger.debug(f'server is up and listens at port {ZMQ_SERVER_PORT}')
+        logger.debug(f'zeromq server is up and listens at port {ZMQ_SERVER_PORT}')
              
         while keep_routing:
             incoming_events = dict(router_poller.poll(5000))

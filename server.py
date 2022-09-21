@@ -58,7 +58,7 @@ async def handle_create_image(incoming_req: Request):
     try:
         query_params = dict(incoming_req.query_params.items())
         parameters_map = {}
-        for item_ in API_SCHEMA['create_image']['post']['parameters']:
+        for item_ in API_SCHEMA['/create_image']['post']['parameters']:
             if item_['name'] in query_params:
                 fun = map_type2fun[item_['schema']['type']]
                 parameters_map[item_['name']] = fun(query_params[item_['name']])

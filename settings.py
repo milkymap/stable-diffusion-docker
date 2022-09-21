@@ -1,6 +1,6 @@
 ZMQ_SERVER_PORT=1200
-
-MAP_SOURCE_LANGUAGE2CODE = {'german': 'de', 'french': 'fr', 'spanish': 'es', 'italian': 'it', 'arabic': 'ar', 'chinese': 'zh', 'russian': 'ru'}
+FASTAPI_SERVER_PORT=8000
+MAP_SOURCE_LANGUAGE2CODE = {'english': 'en', 'german': 'de', 'french': 'fr', 'spanish': 'es', 'italian': 'it', 'arabic': 'ar', 'chinese': 'zh', 'russian': 'ru'}
 
 APP_DESCRIPTIONS = {
     "title":"image generation", 
@@ -16,7 +16,7 @@ APP_DESCRIPTIONS = {
 }
 
 API_SCHEMA = {
-    "create_image":{
+    "/create_image":{
         "post": {
             "parameters": [
                 {

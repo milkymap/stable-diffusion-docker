@@ -10,6 +10,7 @@ opencv-python
 
 # socket rest-api libraries 
 pyzmq
+gradio 
 jinja2
 fastapi
 uvicorn
