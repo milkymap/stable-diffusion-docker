@@ -12,7 +12,7 @@ stable diffusion docker image
 # docker env variables 
 * CACHE 
     * model will be cached here 
-    * the model is huge so it is important to cached it 
+    * the model is huge so it is important to save it 
 * TRANSFORMERS_CACHE
 
 # initialization 
