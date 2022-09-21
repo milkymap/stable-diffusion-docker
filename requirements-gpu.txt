@@ -1,0 +1,27 @@
+# io libraries 
+rich
+click
+loguru
+
+# vectors processing libraries 
+numpy
+scipy 
+opencv-python 
+
+# socket rest-api libraries 
+pyzmq
+jinja2
+fastapi
+uvicorn
+websockets
+python-multipart
+
+# nlp 
+ftfy 
+spacy 
+
+# graph vision deep learning libraries  
+diffusers
+torchvision 
+transformers 
+sentence-transformers 
