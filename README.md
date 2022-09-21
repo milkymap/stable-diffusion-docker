@@ -1,5 +1,5 @@
 # image-semantic-search
-This tools allows to use stable diffusion model
+stable diffusion docker image 
 
 <p align="center"> 
   <img src="./images/gal-gadot.jpg">
@@ -16,19 +16,19 @@ This tools allows to use stable diffusion model
 * TRANSFORMERS_CACHE
 
 # initialization 
-* create an internal cache dir 
-* mount this dir to the docker system with -v path2internal_cache:/home/solver/cache
+* create a cache dir 
+* mount this dir to the docker system with -v path2cache:/home/solver/cache
 
 ```bash
     mkdir cache 
     mkdir cache/transformers
-    # -v path2cache:/home/solver/cache 
+    # use -v path2cache:/home/solver/cache in docker run command  
 ```
 
 # build and run server-mode for cpu 
 ```bash
 docker build -t stable-diffusion:0.0 -f Dockerfile.gpu .
-docker run --rm --name stable-diffusion --interactive --tty --gpus all -v path2cache:/home/solver/cache -p hostport:server_port -p hostport:display_port  stable-diffusion:0.0 --server_port 8000 --display_port 7068 --language_source 'french' --token your-token
+docker run --rm --name stable-diffusion --interactive --tty --gpus all -v path2cache:/home/solver/cache -p hostport:display_port stable-diffusion:0.0 --display_port 7068 --language_source 'french' --token your-token
 ``` 
 
 # examples of prompts 
