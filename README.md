@@ -1,6 +1,14 @@
 # image-semantic-search
 This tools allows to use stable diffusion model
 
+<p align="center"> 
+  <img src="./images/gal-gadot.jpg">
+  <h3 align="center">
+    gal gadot, portrait by ruan jia and miho hirano, colorful, vibrant, majestic
+  </h3>  
+</p>
+
+
 # docker env variables 
 * CACHE 
     * model will be cached here 
